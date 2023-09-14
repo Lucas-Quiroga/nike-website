@@ -1,7 +1,13 @@
+"use client";
+
 import React from "react";
 import ProductCard from "./ProductCard";
+import HeaderMain from "./HeaderMain";
+import { useSearch } from "@/context/ProductsContextProvider";
 
 const NewProducts = () => {
+  const { searchQuery, setSearchQuery } = useSearch();
+
   const productsData = [
     {
       img: "/nike1.jpg",
@@ -60,13 +66,18 @@ const NewProducts = () => {
       price: "120.00",
     },
   ];
+
+  const filterDataProducts = productsData.filter(({ desc }) => {
+    return desc.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div>
       <div className="container pt-16">
         <h2 className="font-medium text-2xl pb-4">New Products</h2>
-
+        <HeaderMain />
         <div className="grid grid-cols-1 place-items-center sm:place-items-start sm:grid-cols-2 lg:grid-col-3 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10">
-          {productsData.map((item, index) => (
+          {filterDataProducts.map((item, index) => (
             <ProductCard
               key={index}
               img={item.img}

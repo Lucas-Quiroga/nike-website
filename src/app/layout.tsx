@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import MobNavbar from "@/components/MobNavbar";
 import Footer from "@/components/Footer";
+import ProductsContextProvider from "@/context/ProductsContextProvider";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -26,10 +27,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <HeaderTop />
-        <HeaderMain />
+        {/* <HeaderMain /> */}
         <Navbar />
         <MobNavbar />
-        {children}
+        <ProductsContextProvider>{children}</ProductsContextProvider>
         <Footer />
       </body>
     </html>

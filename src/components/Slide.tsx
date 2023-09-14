@@ -11,7 +11,7 @@ interface propsType {
 
 const Slide: React.FC<propsType> = ({ id, img, title, mainTitle, price }) => {
   return (
-    <div className="outline-none border-none relative">
+    <div className="outline-none border-none relative pt-8">
       <div
         className={`absolute ${
           id === 2
@@ -40,11 +40,11 @@ const Slide: React.FC<propsType> = ({ id, img, title, mainTitle, price }) => {
         </div>
       </div>
       <Image
-        className="w-[100%] h-[300px] md:h-auto rounded-xl object-cover object-right md:object-left-bottom"
+        className="w-[100%] h-[800px] md:h-auto rounded-xl object-cover object-right md:object-left-bottom"
         src={img}
         alt="banner"
-        width={2000}
-        height={2000}
+        width={1920}
+        height={800}
       />
     </div>
   );
