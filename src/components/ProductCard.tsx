@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useShoppingCart } from "@/context/ShoppingCartProvider";
 
 interface propsType {
   img: string;
@@ -17,6 +19,8 @@ const ProductCard: React.FC<propsType> = ({
   rating,
   price,
 }) => {
+  const { quantity, setQuantity } = useShoppingCart();
+
   const generateRating = (rating: number) => {
     if (rating < 1 || rating > 5) {
       return null;
@@ -47,7 +51,7 @@ const ProductCard: React.FC<propsType> = ({
         />
       </div>
 
-      <div className="space-y-2 py-2">
+      <div className="space-y-2 py-2 flex flex-col justify-between h-full">
         <h2 className="text-accent font-medium uppercase">{title}</h2>
         <p className="text-gray-500 max-w-[150px]">{desc}</p>
         <div>{generateRating(rating)}</div>
@@ -58,6 +62,38 @@ const ProductCard: React.FC<propsType> = ({
             ${parseInt(price) + 50}.00
           </del>
         </div>
+        {quantity === 0 ? (
+          <button
+            onClick={() => setQuantity(quantity + 1)}
+            className="mb-2 w-full bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
+          >
+            Buy
+          </button>
+        ) : (
+          <div
+            className="text-center flex justify-center items-center"
+            style={{ gap: ".5rem" }}
+          >
+            <div className="grid grid-cols-3 gap-1">
+              <button
+                onClick={() => setQuantity(quantity - 1)}
+                className="mb-2  bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
+              >
+                -
+              </button>
+              <div>
+                <span className="col-end-2">{quantity}</span> in cart
+              </div>
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="mb-2 bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
+              >
+                +
+              </button>
+              <button className="col-span-3">Remove</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,17 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { BiUser } from "react-icons/bi";
 import { FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import Image from "next/image";
+import { useShoppingCart } from "@/context/ShoppingCartProvider";
 
 const Navbar = () => {
+  const { quantity } = useShoppingCart();
+
   return (
-    <div className="lg:block">
+    <div className="lg:block sticky top-0 overflow-hidden bg-white z-10">
       <div className="container flex justify-between items-center">
         <div className=" font-bold text-4xl text-center pb-2 sm:pb-0 text-blackish flex items-center justify-center">
           <Image
@@ -50,7 +54,7 @@ const Navbar = () => {
           <div className="relative">
             <HiOutlineShoppingBag />
             <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-              0
+              {quantity}
             </div>
           </div>
         </div>

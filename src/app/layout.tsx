@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import MobNavbar from "@/components/MobNavbar";
 import Footer from "@/components/Footer";
 import ProductsContextProvider from "@/context/ProductsContextProvider";
+import { ShoppingCartProvider } from "@/context/ShoppingCartProvider";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -26,11 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <HeaderTop />
-        {/* <HeaderMain /> */}
-        <Navbar />
-        <MobNavbar />
-        <ProductsContextProvider>{children}</ProductsContextProvider>
+        <ShoppingCartProvider>
+          <HeaderTop />
+          {/* <HeaderMain /> */}
+          <Navbar />
+          <MobNavbar />
+          <ProductsContextProvider>{children}</ProductsContextProvider>
+        </ShoppingCartProvider>
         <Footer />
       </body>
     </html>

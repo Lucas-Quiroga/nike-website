@@ -1,7 +1,28 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { BsFacebook, BsTwitter, BsInstagram, BsLinkedin } from "react-icons/bs";
 
 const HeaderTop = () => {
+  const messages = [
+    "FREE SHIPPING on all Nike orders this week!",
+    "Limited-time offer: 20% off Nike footwear.",
+    "Upgrade your style with Nike's latest collection.",
+  ];
+
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  useEffect(() => {
+    const messageInterval = setInterval(() => {
+      setCurrentMessageIndex((prevIndex) =>
+        prevIndex === messages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 2000);
+
+    return () => {
+      clearInterval(messageInterval);
+    };
+  }, []);
+
   return (
     <div className="border-b border-gray-200 hidden sm:block">
       <div className="container py-4">
@@ -21,8 +42,8 @@ const HeaderTop = () => {
             </div>
           </div>
 
-          <div className="text-gray-500 text-[12px]">
-            <b>FREE SHIPPING</b> THIS WEEK ORDER OVER - $55
+          <div className="text-gray-500 text-[15px]">
+            <span>{messages[currentMessageIndex]}</span>
           </div>
 
           <div className="flex gap-4">
