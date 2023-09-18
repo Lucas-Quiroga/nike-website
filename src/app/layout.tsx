@@ -8,6 +8,7 @@ import MobNavbar from "@/components/MobNavbar";
 import Footer from "@/components/Footer";
 import ProductsContextProvider from "@/context/ProductsContextProvider";
 import { ShoppingCartProvider } from "@/context/ShoppingCartProvider";
+import CanvaShoppingCart from "@/components/CanvaShoppingCart";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,6 +32,7 @@ export default function RootLayout({
           <HeaderTop />
           {/* <HeaderMain /> */}
           <Navbar />
+          <CanvaShoppingCart />
           <MobNavbar />
           <ProductsContextProvider>{children}</ProductsContextProvider>
         </ShoppingCartProvider>

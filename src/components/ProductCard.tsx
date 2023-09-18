@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useShoppingCart } from "@/context/ShoppingCartProvider";
+import "@/styles/ProductCard.css";
 
 interface propsType {
+  id: number;
   img: string;
   title: string;
   desc: string;
@@ -13,13 +15,25 @@ interface propsType {
 }
 
 const ProductCard: React.FC<propsType> = ({
+  id,
   img,
   title,
   desc,
   rating,
   price,
 }) => {
-  const { quantity, setQuantity } = useShoppingCart();
+  const {
+    setQuantity,
+    incrementQuantity,
+    cartQuantityReduce,
+    getItemQuantity,
+    decrementQuantity,
+    removeItem,
+    setLike,
+    like,
+  } = useShoppingCart();
+
+  const quantity = getItemQuantity(id);
 
   const generateRating = (rating: number) => {
     if (rating < 1 || rating > 5) {
@@ -63,12 +77,51 @@ const ProductCard: React.FC<propsType> = ({
           </del>
         </div>
         {quantity === 0 ? (
-          <button
-            onClick={() => setQuantity(quantity + 1)}
-            className="mb-2 w-full bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
-          >
-            Buy
-          </button>
+          // <button
+          //
+          //   className="mb-2 w-full bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
+          // >
+          //   Buy
+          // </button>
+          <div className="flex justify-between items-center flex-row-reverse">
+            <button
+              type="button"
+              className="button rounded-lg text-center"
+              onClick={() => incrementQuantity(id)}
+            >
+              <span className="button__text rounded-lg">Add Item</span>
+              <span className="button__icon rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke="currentColor"
+                  height="24"
+                  fill="none"
+                  className="svg"
+                >
+                  <line y2="19" y1="5" x2="12" x1="12"></line>
+                  <line y2="12" y1="12" x2="19" x1="5"></line>
+                </svg>
+              </span>
+            </button>
+            <label className="containerr">
+              <input type="checkbox" onClick={() => setLike(like + 1)} />
+              <svg
+                id="Layer_1"
+                version="1.0"
+                viewBox="0 0 24 24"
+                xmlSpace="preserve" // Cambiado de "xml:space" a "xmlSpace"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink" // Cambiado de "xmlns:xlink" a "xmlnsXlink"
+              >
+                <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"></path>
+              </svg>
+            </label>
+          </div>
         ) : (
           <div
             className="text-center flex justify-center items-center"
@@ -76,21 +129,23 @@ const ProductCard: React.FC<propsType> = ({
           >
             <div className="grid grid-cols-3 gap-1">
               <button
-                onClick={() => setQuantity(quantity - 1)}
+                onClick={() => decrementQuantity(id)}
                 className="mb-2  bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
               >
                 -
               </button>
               <div>
-                <span className="col-end-2">{quantity}</span> in cart
+                <span className="col-end-2 relative top-1">{quantity}</span>
               </div>
               <button
-                onClick={() => setQuantity(quantity + 1)}
-                className="mb-2 bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
+                onClick={() => incrementQuantity(id)}
+                className="mb-2 w-20 bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
               >
                 +
               </button>
-              <button className="col-span-3">Remove</button>
+              {/* <button onClick={() => removeItem(id)} className="col-span-3">
+                Remove
+              </button> */}
             </div>
           </div>
         )}
