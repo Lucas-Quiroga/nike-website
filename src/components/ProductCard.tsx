@@ -12,6 +12,7 @@ interface propsType {
   desc: string;
   rating: number;
   price: string;
+  liked: boolean;
 }
 
 const ProductCard: React.FC<propsType> = ({
@@ -21,6 +22,7 @@ const ProductCard: React.FC<propsType> = ({
   desc,
   rating,
   price,
+  liked,
 }) => {
   const {
     setQuantity,
@@ -29,8 +31,9 @@ const ProductCard: React.FC<propsType> = ({
     getItemQuantity,
     decrementQuantity,
     removeItem,
-    setLike,
-    like,
+    updateLikedStatus,
+    checkedLike,
+    setCheckedLike,
   } = useShoppingCart();
 
   const quantity = getItemQuantity(id);
@@ -51,6 +54,12 @@ const ProductCard: React.FC<propsType> = ({
     );
 
     return stars;
+  };
+
+  const handleLikeClick = () => {
+    // Actualiza el estado liked del producto
+    const newLikedStatus = !liked;
+    updateLikedStatus(id, newLikedStatus);
   };
 
   return (
@@ -83,6 +92,7 @@ const ProductCard: React.FC<propsType> = ({
           // >
           //   Buy
           // </button>
+
           <div className="flex justify-between items-center flex-row-reverse">
             <button
               type="button"
@@ -109,7 +119,11 @@ const ProductCard: React.FC<propsType> = ({
               </span>
             </button>
             <label className="containerr">
-              <input type="checkbox" onClick={() => setLike(like + 1)} />
+              <input
+                type="checkbox"
+                onClick={() => setCheckedLike(!checkedLike)}
+                checked={checkedLike}
+              />
               <svg
                 id="Layer_1"
                 version="1.0"

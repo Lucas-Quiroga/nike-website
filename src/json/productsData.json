@@ -5,7 +5,8 @@
         "title": "NEW",
         "desc": "Nike ZoomX Vaporfly",
         "rating": 4,
-        "price": "45.00"
+        "price": "45.00",
+        "liked": false
     },
     {
         "id": 1,
@@ -13,7 +14,8 @@
         "title": "NEW",
         "desc": "Nike Vaporfly",
         "rating": 5,
-        "price": "55.00"
+        "price": "55.00",
+        "liked": false
     },
     {
         "id": 2,
@@ -21,7 +23,8 @@
         "title": "50% OFF",
         "desc": "Nike Air Max Flyknit Racer Next Nature",
         "rating": 3,
-        "price": "25.00"
+        "price": "25.00",
+        "liked": false
     },
     {
         "id": 3,
@@ -29,7 +32,8 @@
         "title": "SPORTS",
         "desc": "Nike React Infinity Run Flyknit 3 Premium",
         "rating": 4,
-        "price": "45.00"
+        "price": "45.00",
+        "liked": false
     },
     {
         "id": 4,
@@ -37,7 +41,8 @@
         "title": "SPORTS",
         "desc": "Nike Air Zoom Alphafly",
         "rating": 3,
-        "price": "58.00"
+        "price": "58.00",
+        "liked": false
     },
     {
         "id": 5,
@@ -45,7 +50,8 @@
         "title": "AIR",
         "desc": "Air Jordan 1 Low",
         "rating": 4,
-        "price": "100.00"
+        "price": "100.00",
+        "liked": false
     },
     {
         "id": 6,
@@ -53,7 +59,8 @@
         "title": "AIR",
         "desc": "Air Jordan 1 Low",
         "rating": 4,
-        "price": "120.00"
+        "price": "120.00",
+        "liked": false
     },
     {
         "id": 7,
@@ -61,6 +68,7 @@
         "title": "NEW",
         "desc": "Nike Air Max SYSTM",
         "rating": 4,
-        "price": "120.00"
+        "price": "120.00",
+        "liked": false
     }
 ]

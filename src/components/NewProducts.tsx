@@ -40,6 +40,7 @@ const NewProducts = () => {
               desc={item.desc}
               rating={item.rating}
               price={item.price}
+              liked={item.liked}
             />
           ))}
         </div>

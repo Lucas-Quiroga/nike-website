@@ -1,9 +1,10 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 type CartItem = {
   id: number;
   quantity: number;
+  liked?: boolean;
 };
 
 type CartItemContextType = {
@@ -19,8 +20,10 @@ type CartItemContextType = {
   toggleMenu: () => void;
   isOpen: boolean;
   closeMenu: () => void;
+  updateLikedStatus: (id: number, liked: boolean) => void;
   like: number;
-  setLike: (n: number) => void;
+  checkedLike: boolean;
+  setCheckedLike: (checked: boolean) => void;
 };
 
 const ShoppingCart = createContext<CartItemContextType | undefined>(undefined);
@@ -29,7 +32,18 @@ export const ShoppingCartProvider = ({ children }: any) => {
   const [quantity, setQuantity] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [like, setLike] = useState(0);
+  const [checkedLike, setCheckedLike] = useState(false);
+  const [like, setLiked] = useState(0);
+
+  const updateLikedStatus = (id: number, likede: boolean) => {
+    const updatedCart = cart.map((item) => {
+      if (item.id === id) {
+        return { ...item, liked: likede };
+      }
+      return item;
+    });
+    setCart(updatedCart);
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -85,11 +99,19 @@ export const ShoppingCartProvider = ({ children }: any) => {
     return setCart((currentItem) => currentItem.filter((e) => e.id !== id));
   };
 
+  useEffect(() => {
+    const likedItemCount = cart.filter((elem) => elem.liked).length;
+    console.log(likedItemCount);
+
+    setLiked(likedItemCount);
+  }, [cart]);
+
   return (
     <ShoppingCart.Provider
       value={{
+        checkedLike,
+        setCheckedLike,
         like,
-        setLike,
         isOpen,
         toggleMenu,
         closeMenu,
@@ -102,6 +124,7 @@ export const ShoppingCartProvider = ({ children }: any) => {
         getItemQuantity,
         decrementQuantity,
         removeItem,
+        updateLikedStatus,
       }}
     >
       {children}
