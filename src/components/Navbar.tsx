@@ -12,7 +12,7 @@ const Navbar = () => {
     useShoppingCart();
 
   return (
-    <div className="lg:block sticky top-0 overflow-hidden bg-white z-10">
+    <div className="sm:hidden md:block sticky top-0 overflow-hidden bg-white z-10">
       <div className="container flex justify-between items-center">
         <div className=" font-bold text-4xl text-center pb-2 sm:pb-0 text-blackish flex items-center justify-center">
           <Image
