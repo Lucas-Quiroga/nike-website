@@ -25,16 +25,14 @@ const ProductCard: React.FC<propsType> = ({
   liked,
 }) => {
   const {
-    setQuantity,
     incrementQuantity,
-    cartQuantityReduce,
     getItemQuantity,
     decrementQuantity,
-    removeItem,
     updateLikedStatus,
-    checkedLike,
-    setCheckedLike,
+    isProductLiked,
   } = useShoppingCart();
+
+  const [checkedLike, setCheckedLike] = useState(false);
 
   const quantity = getItemQuantity(id);
 
@@ -56,12 +54,12 @@ const ProductCard: React.FC<propsType> = ({
     return stars;
   };
 
-  const handleLikeClick = () => {
-    // Actualiza el estado liked del producto
-    const newLikedStatus = !liked;
-    updateLikedStatus(id, newLikedStatus);
-  };
+  const likedd = isProductLiked(id); // Obtén el estado liked del contexto
 
+  const handleLikeClick = (id: number) => {
+    // Actualiza el estado liked del producto
+    updateLikedStatus(id, !likedd);
+  };
   return (
     <div className="flex flex-col justify-between px-4 border border-gray-200 rounded-xl max-w-[400px] h-full">
       <div>
@@ -86,13 +84,6 @@ const ProductCard: React.FC<propsType> = ({
           </del>
         </div>
         {quantity === 0 ? (
-          // <button
-          //
-          //   className="mb-2 w-full bg-black rounded-3xl px-2 py-2 text-xs font-medium uppercase leading-normal text-white shadow-md hover:bg-gray-300 hover:text-black"
-          // >
-          //   Buy
-          // </button>
-
           <div className="flex justify-between items-center flex-row-reverse">
             <button
               type="button"
@@ -105,9 +96,9 @@ const ProductCard: React.FC<propsType> = ({
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   stroke="currentColor"
                   height="24"
                   fill="none"
@@ -121,8 +112,8 @@ const ProductCard: React.FC<propsType> = ({
             <label className="containerr">
               <input
                 type="checkbox"
-                onClick={() => setCheckedLike(!checkedLike)}
-                checked={checkedLike}
+                onChange={() => handleLikeClick(id)}
+                checked={likedd}
               />
               <svg
                 id="Layer_1"

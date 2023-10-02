@@ -1,9 +1,25 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
+import productData from "@/json/productsData.json";
 
 type CartItem = {
   id: number;
+  img: string;
+  title: string;
+  desc: string;
+  rating: number;
+  price: string;
   quantity: number;
+  liked?: boolean;
+};
+
+type CartItemLiked = {
+  id: number;
+  img: string;
+  title: string;
+  desc: string;
+  rating: number;
+  price: string;
   liked?: boolean;
 };
 
@@ -17,36 +33,73 @@ type CartItemContextType = {
   cartQuantityReduce: number;
   getItemQuantity: (id: number) => number;
   removeItem: (id: number) => void;
-  toggleMenu: () => void;
   isOpen: boolean;
   closeMenu: () => void;
   updateLikedStatus: (id: number, liked: boolean) => void;
   like: number;
-  checkedLike: boolean;
-  setCheckedLike: (checked: boolean) => void;
+  toggleMenu: (current: "cart" | "liked") => void;
+  isOpenCart: boolean;
+  isOpenLiked: boolean;
+  isProductLiked: (id: number) => boolean;
+  cartLikedCount: number;
+  cartLiked: CartItemLiked[];
 };
 
 const ShoppingCart = createContext<CartItemContextType | undefined>(undefined);
 
 export const ShoppingCartProvider = ({ children }: any) => {
   const [quantity, setQuantity] = useState(0);
+  const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpenLiked, setOpenLiked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [checkedLike, setCheckedLike] = useState(false);
   const [like, setLiked] = useState(0);
 
+  //CARRITO DE LIKES
+  const [cartLiked, setCartLiked] = useState<CartItemLiked[]>([]);
+
   const updateLikedStatus = (id: number, likede: boolean) => {
-    const updatedCart = cart.map((item) => {
-      if (item.id === id) {
-        return { ...item, liked: likede };
+    const item = productData.find((elem) => elem.id === id);
+
+    if (!item) {
+      return; // Salir si no se encuentra el producto
+    }
+
+    if (likede) {
+      // Verificar si el producto ya está en el carrito de likes
+      const isProductInLikedCart = cartLiked.some(
+        (product) => product.id === id
+      );
+
+      if (!isProductInLikedCart) {
+        // Agregar el producto al carrito de likes si no existe
+        setCartLiked([...cartLiked, item]);
       }
-      return item;
-    });
-    setCart(updatedCart);
+    } else {
+      // Eliminar el producto del carrito de likes si existe
+      setCartLiked(cartLiked.filter((product) => product.id !== id));
+    }
   };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const isProductLiked = (id: number) => {
+    return cartLiked.some((product) => product.id === id);
+  };
+
+  const toggleMenu = (current: string) => {
+    switch (current) {
+      case "liked":
+        setOpenLiked(true);
+        setIsOpenCart(false);
+        setIsOpen(true);
+        break;
+      case "cart":
+        setIsOpenCart(true);
+        setOpenLiked(false);
+        setIsOpen(true);
+        break;
+      default:
+        break;
+    }
   };
 
   const closeMenu = () => {
@@ -58,12 +111,15 @@ export const ShoppingCartProvider = ({ children }: any) => {
     0
   );
 
+  const cartLikedCount: number = cartLiked.length;
+
   function getItemQuantity(id: number) {
     return cart.find((item) => item.id == id)?.quantity || 0;
   }
 
   const incrementQuantity = (id: number) => {
     const existingItem = cart.find((item) => item.id === id);
+
     if (existingItem) {
       setCart((currentCart) =>
         currentCart.map((item) =>
@@ -71,7 +127,19 @@ export const ShoppingCartProvider = ({ children }: any) => {
         )
       );
     } else {
-      setCart((currentCart) => [...currentCart, { id, quantity: 1 }]);
+      // Busca el producto en productData usando el ID
+      const productToAdd = productData.find((product) => product.id === id);
+
+      if (productToAdd) {
+        // Agrega el producto al carrito con su cantidad original y otros datos originales
+        setCart((currentCart) => [
+          ...currentCart,
+          {
+            ...productToAdd,
+            quantity: 1,
+          },
+        ]);
+      }
     }
   };
 
@@ -106,11 +174,17 @@ export const ShoppingCartProvider = ({ children }: any) => {
     setLiked(likedItemCount);
   }, [cart]);
 
+  useEffect(() => {
+    console.log(cartLiked);
+  }, [cartLiked]);
+
   return (
     <ShoppingCart.Provider
       value={{
-        checkedLike,
-        setCheckedLike,
+        cartLiked,
+        cartLikedCount,
+        isOpenCart,
+        isOpenLiked,
         like,
         isOpen,
         toggleMenu,
@@ -125,6 +199,7 @@ export const ShoppingCartProvider = ({ children }: any) => {
         decrementQuantity,
         removeItem,
         updateLikedStatus,
+        isProductLiked,
       }}
     >
       {children}

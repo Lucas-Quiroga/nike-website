@@ -8,7 +8,8 @@ import Image from "next/image";
 import { useShoppingCart } from "@/context/ShoppingCartProvider";
 
 const Navbar = () => {
-  const { cartQuantityReduce, toggleMenu, like } = useShoppingCart();
+  const { cartQuantityReduce, toggleMenu, like, cartLikedCount } =
+    useShoppingCart();
 
   return (
     <div className="lg:block sticky top-0 overflow-hidden bg-white z-10">
@@ -46,13 +47,19 @@ const Navbar = () => {
         {/* //hiden */}
         <div className=" lg:flex gap-4 text-gray-500 text-[30px]">
           <BiUser />
-          <div className="relative">
+          <div
+            onClick={() => toggleMenu("liked")}
+            className="relative cursor-pointer"
+          >
             <FiHeart />
             <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-              {like}
+              {cartLikedCount}
             </div>
           </div>
-          <div onClick={toggleMenu} className="relative cursor-pointer">
+          <div
+            onClick={() => toggleMenu("cart")}
+            className="relative cursor-pointer"
+          >
             <HiOutlineShoppingBag />
             <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
               {cartQuantityReduce}

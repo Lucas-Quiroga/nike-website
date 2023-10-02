@@ -5,6 +5,7 @@ import Image from "next/image";
 import productData from "@/json/productsData.json";
 import { BsTrash } from "react-icons/bs";
 
+//productos en general
 type Product = {
   id: number;
   img: string;
@@ -12,6 +13,7 @@ type Product = {
   desc: string;
   rating: number;
   price: string;
+  liked?: boolean;
 };
 
 const CanvaShoppingCart = () => {
@@ -22,6 +24,10 @@ const CanvaShoppingCart = () => {
     cart,
     removeItem,
     cartQuantityReduce,
+    isOpenCart,
+    isOpenLiked,
+    cartLiked,
+    cartLikedCount,
   } = useShoppingCart();
 
   const products: Product[] = productData;
@@ -56,51 +62,96 @@ const CanvaShoppingCart = () => {
           >
             X
           </button>
-          <div className="p-4">
-            <h1 className="text-xl font-semibold">Menu</h1>
-            <ul className="mt-4">
-              {cart.map((item) => {
-                const product = getItemById(item.id);
-                if (product && item.quantity > 0) {
+
+          {isOpenLiked && (
+            <div className="p-4">
+              <h1 className="text-xl font-semibold">{`${
+                isOpen && isOpenLiked && "Menu Liked"
+              }`}</h1>
+              <ul className="mt-4">
+                {cartLiked.map((item) => {
+                  // Agrega esta línea para verificar
                   return (
                     <li
                       key={item.id}
                       className="border-2 rounded-lg m-3 flex items-center"
                     >
                       <Image
-                        src={product.img}
-                        alt={product.desc}
+                        src={item.img}
+                        alt={item.desc}
                         width={125}
                         height={75}
                         className="mr-2"
                       />
                       <span className="text-1xl p-10 flex-grow">
-                        {product.desc}{" "}
-                        <span className="text-gray-600 text-[10px]">
-                          x{item.quantity}
-                        </span>
+                        {item.desc}{" "}
                       </span>
-                      <button
-                        onClick={() => removeItem(product.id)}
-                        className="rounded-lg border-2 bg-blackish text-white border-blackish mx-2"
-                      >
-                        <BsTrash />
-                      </button>
                     </li>
                   );
-                }
-                return null;
-              })}
-            </ul>
-            <hr />
-            {totalPrice === 0 ? (
-              <div className="text-center text-gray-500 mt-4">No items yet</div>
-            ) : (
-              <h2 className="text-muted text-gray-600">
-                Total purchase: ${totalPrice}
-              </h2>
-            )}
-          </div>
+                })}
+              </ul>
+              <hr />
+              {cartLikedCount === 0 ? (
+                <div className="text-center text-gray-500 mt-4">
+                  No items yet
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
+
+          {isOpenCart && (
+            <div className="p-4">
+              <h1 className="text-xl font-semibold">{`${
+                isOpen && isOpenCart && "Menu Cart"
+              }`}</h1>
+              <ul className="mt-4">
+                {cart.map((item) => {
+                  const product = getItemById(item.id);
+                  if (product && item.quantity > 0) {
+                    return (
+                      <li
+                        key={item.id}
+                        className="border-2 rounded-lg m-3 flex items-center"
+                      >
+                        <Image
+                          src={product.img}
+                          alt={product.desc}
+                          width={125}
+                          height={75}
+                          className="mr-2"
+                        />
+                        <span className="text-1xl p-10 flex-grow">
+                          {product.desc}{" "}
+                          <span className="text-gray-600 text-[10px]">
+                            x{item.quantity}
+                          </span>
+                        </span>
+                        <button
+                          onClick={() => removeItem(product.id)}
+                          className="rounded-lg border-2 bg-blackish text-white border-blackish mx-2"
+                        >
+                          <BsTrash />
+                        </button>
+                      </li>
+                    );
+                  }
+                  return null;
+                })}
+              </ul>
+              <hr />
+              {totalPrice === 0 ? (
+                <div className="text-center text-gray-500 mt-4">
+                  No items yet
+                </div>
+              ) : (
+                <h2 className="text-muted text-gray-600">
+                  Total purchase: ${totalPrice}
+                </h2>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>
