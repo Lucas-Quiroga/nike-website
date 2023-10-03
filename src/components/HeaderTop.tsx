@@ -42,7 +42,7 @@ const HeaderTop = () => {
             </div>
           </div>
 
-          <div className="text-gray-500 text-[15px]">
+          <div className=" text-gray-500 text-[15px]">
             <span>{messages[currentMessageIndex]}</span>
           </div>
 

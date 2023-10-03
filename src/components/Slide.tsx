@@ -13,19 +13,13 @@ const Slide: React.FC<propsType> = ({ id, img, title, mainTitle, price }) => {
   return (
     <div className="outline-none border-none relative pt-8">
       <div
-        className={`absolute ${
+        className={`hidden md:block  absolute ${
           id === 2
-            ? "right-[30px] md:right-[70px]"
-            : "left-[30px] md:left-[70px]"
-        } max-w-[250px] sm:max-w-[350px] top-[50%] -translate-y-[50%] space-y-2 lg:space-y-4 bg-[#ffffffa2] sm:bg-transparent p-4 sm:p-0 rounded-lg sm:rounded-none`}
+            ? "right-[30px] md:right-[10px] lg:right-[70px]"
+            : "left-[30px] lg:left-[70px]"
+        } max-w-[250px] sm:max-w-[350px] top-[50%] -translate-y-[50%] space-y-2 lg:space-y-4 bg-[#ffffffa2] xll:bg-transparent p-4 md:p-2 md:mt-3 xll:p-0 rounded-lg xll:rounded-none`}
       >
-        <h3
-          className={`${
-            id === 0 ? "text-blackish" : "text-white"
-          } text-[24px] lg:text-[28px]`}
-        >
-          {title}
-        </h3>
+        <h3 className="text-blackish text-[24px] lg:text-[28px]">{title}</h3>
         <h2 className="text-[26px] md:text-[30px] lg:text-[44px] font-bold leading-[1.2]">
           {mainTitle}
         </h2>

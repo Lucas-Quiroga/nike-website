@@ -30,7 +30,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <ShoppingCartProvider>
           <HeaderTop />
-          {/* <HeaderMain /> */}
           <Navbar />
           <CanvaShoppingCart />
           <MobNavbar />

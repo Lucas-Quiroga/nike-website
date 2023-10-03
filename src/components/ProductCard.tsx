@@ -32,8 +32,6 @@ const ProductCard: React.FC<propsType> = ({
     isProductLiked,
   } = useShoppingCart();
 
-  const [checkedLike, setCheckedLike] = useState(false);
-
   const quantity = getItemQuantity(id);
 
   const generateRating = (rating: number) => {
@@ -54,7 +52,7 @@ const ProductCard: React.FC<propsType> = ({
     return stars;
   };
 
-  const likedd = isProductLiked(id); // Obtén el estado liked del contexto
+  const likedd = isProductLiked(id); // Obtengo el estado liked del contexto
 
   const handleLikeClick = (id: number) => {
     // Actualiza el estado liked del producto
@@ -119,9 +117,9 @@ const ProductCard: React.FC<propsType> = ({
                 id="Layer_1"
                 version="1.0"
                 viewBox="0 0 24 24"
-                xmlSpace="preserve" // Cambiado de "xml:space" a "xmlSpace"
+                xmlSpace="preserve"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink" // Cambiado de "xmlns:xlink" a "xmlnsXlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
               >
                 <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"></path>
               </svg>
@@ -148,9 +146,6 @@ const ProductCard: React.FC<propsType> = ({
               >
                 +
               </button>
-              {/* <button onClick={() => removeItem(id)} className="col-span-3">
-                Remove
-              </button> */}
             </div>
           </div>
         )}

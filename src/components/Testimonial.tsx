@@ -5,7 +5,6 @@ const Testimonial = () => {
   return (
     <div>
       <div className="container pt-16 pb-16 grid-cols-2">
-        {/* <h2 className="font-medium text-2xl pb-4">Testimonials</h2> */}
         <div className="gap-4">
           <div className="bg-[url(/nike.jpg)] bg-cover h-[500px] rounded-2xl grid place-items-center">
             <div className="bg-[#ffffffab] min-w-[270px] sm:min-w-[300px] md:min-w-[500px] rounded-xl py-8 sm:px-8 px-2 grid place-items-center gap-3">

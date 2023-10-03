@@ -10,7 +10,7 @@ const MobNavbar = () => {
   const { cartQuantityReduce, toggleMenu, like, cartLikedCount } =
     useShoppingCart();
   return (
-    <div className="lg:hidden fixed bottom-0 w-full left-[50%] -translate-x-[50%] max-w-[500px] mob_navbar px-8 bg-white z-10">
+    <div className="lg:hidden fixed bottom-0 w-full left-[50%] -translate-x-[50%] max-w-[800px] mob_navbar px-8 bg-white z-10">
       <div className="flex justify-between text-[28px] py-2">
         <IoMenuOutline />
         <div

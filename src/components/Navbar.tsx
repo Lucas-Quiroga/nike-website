@@ -12,7 +12,7 @@ const Navbar = () => {
     useShoppingCart();
 
   return (
-    <div className="sm:hidden md:block sticky top-0 overflow-hidden bg-white z-10">
+    <div className="hidden md:block sticky top-0 overflow-hidden bg-white z-10">
       <div className="container flex justify-between items-center">
         <div className=" font-bold text-4xl text-center pb-2 sm:pb-0 text-blackish flex items-center justify-center">
           <Image
@@ -44,8 +44,7 @@ const Navbar = () => {
             HOT OFFERS
           </Link>
         </div>
-        {/* //hiden */}
-        <div className=" lg:flex gap-4 text-gray-500 text-[30px]">
+        <div className="md:hidden lg:flex gap-4 text-gray-500 text-[30px]">
           <BiUser />
           <div
             onClick={() => toggleMenu("liked")}

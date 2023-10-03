@@ -127,7 +127,6 @@ export const ShoppingCartProvider = ({ children }: any) => {
         )
       );
     } else {
-      // Busca el producto en productData usando el ID
       const productToAdd = productData.find((product) => product.id === id);
 
       if (productToAdd) {
@@ -169,14 +168,8 @@ export const ShoppingCartProvider = ({ children }: any) => {
 
   useEffect(() => {
     const likedItemCount = cart.filter((elem) => elem.liked).length;
-    console.log(likedItemCount);
-
     setLiked(likedItemCount);
   }, [cart]);
-
-  useEffect(() => {
-    console.log(cartLiked);
-  }, [cartLiked]);
 
   return (
     <ShoppingCart.Provider

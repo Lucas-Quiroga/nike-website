@@ -54,7 +54,7 @@ const CanvaShoppingCart = () => {
         <div
           className={`${
             isOpen ? "translate-x-0" : "translate-x-full"
-          } fixed inset-y-0 right-0 w-100 min-w-[650px] bg-white border-l transition-transform duration-300 transform z-20`}
+          } fixed inset-y-0 right-0 w-100 min-w-[400px] sm:min-w-[650px] bg-white border-l transition-transform duration-300 transform z-20`}
         >
           <button
             onClick={closeMenu}
@@ -70,7 +70,6 @@ const CanvaShoppingCart = () => {
               }`}</h1>
               <ul className="mt-4">
                 {cartLiked.map((item) => {
-                  // Agrega esta línea para verificar
                   return (
                     <li
                       key={item.id}
